@@ -1,5 +1,5 @@
 // Packages are ways of grouping up related Go code together.
-package main
+package hello
 
 // With import "fmt" we are importing a package which contains the Println function that we use to print.
 import "fmt"
@@ -10,9 +10,6 @@ In this function, you usually call other packages and implement your program log
 */
 func init() {
 	fmt.Println("launch initialization")
-}
-
-func main() {
 	fmt.Println(createHello("Aji", "spanish"))
 }
 
