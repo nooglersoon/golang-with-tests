@@ -13,14 +13,6 @@ func init() {
 	fmt.Println(createHello("Aji", "spanish"))
 }
 
-/*
-
-The function name starts with a lowercase letter.
-In Go, public functions start with a capital letter and private ones start with a lowercase.
-We don't want the internals of our algorithm to be exposed to the world, so we made this function private.
-
-*/
-
 // Is good to seperate domain code from the outside world (side-effects)
 // Separate these conserns so its easier to test them
 // Followed string is to tell the compiler that the followed function return a string data type
