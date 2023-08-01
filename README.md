@@ -89,3 +89,23 @@ In Go interface resolution is implicit. If the type you pass in matches what the
 Table driven tests are useful when you want to build a list of test cases that can be tested in the same manner.
 
 Table driven tests can be a great item in your toolbox, but be sure that you have a need for the extra noise in the tests. They are a great fit when you wish to test various implementations of an interface, or if the data being passed in to a function has lots of different requirements that need testing.
+
+
+### Pointers
+
+Pointers let us point to some values and then let us change them. So rather than taking a copy of the whole Wallet, we instead take a pointer to that wallet so that we can change the original values within it.
+
+In Go, when you call a function or a method the arguments are copied.
+
+When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.
+Without getting too computer-sciency, when you create a value - like a wallet, it is stored somewhere in memory. You can find out what the address of that bit of memory with &myVal.
+
+### Typealias swift on go
+
+Go lets you create new types from existing ones.
+The syntax is type MyName OriginalType
+
+To make Bitcoin you just use the syntax Bitcoin(999).
+By doing this we're making a new type and we can declare methods on them.
+
+This can be very useful when you want to add some domain specific functionality on top of existing types.
