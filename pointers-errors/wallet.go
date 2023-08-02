@@ -1,8 +1,14 @@
 package pointerserrors
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Bitcoin int
+
+// Bitcoin representsThe var keyword allows us to define values global to the package.
+var ErrInsufficientFunds = errors.New("cannot withdraw, insufficient funds")
 
 type Wallet struct {
 	// In Go if a symbol (variables, types, functions et al) starts with a lowercase symbol then it is private outside the package it's defined in.
@@ -13,15 +19,16 @@ func (w *Wallet) Deposit(amount Bitcoin) {
 	// In Go, when you call a function or a method the arguments are copied.
 	// When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.
 
-	fmt.Printf("address of balance in Deposit is %v \n", &w.balance)
+	// fmt.Printf("address of balance in Deposit is %v \n", &w.balance)
 	w.balance += amount
 }
 
-func (w *Wallet) Withdraw(amount Bitcoin) {
-	// if w.balance >= amount {
-	// 	w.balance -= amount
-	// }
+func (w *Wallet) Withdraw(amount Bitcoin) error {
+	if amount > w.balance {
+		return ErrInsufficientFunds
+	}
 	w.balance -= amount
+	return nil
 }
 
 func (w *Wallet) Balance() Bitcoin {

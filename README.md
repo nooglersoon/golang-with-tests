@@ -100,6 +100,10 @@ In Go, when you call a function or a method the arguments are copied.
 When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.
 Without getting too computer-sciency, when you create a value - like a wallet, it is stored somewhere in memory. You can find out what the address of that bit of memory with &myVal.
 
+Go copies values when you pass them to functions/methods, so if you're writing a function that needs to mutate state you'll need it to take a pointer to the thing you want to change.
+
+The fact that Go takes a copy of values is useful a lot of the time but sometimes you won't want your system to make a copy of something, in which case you need to pass a reference. Examples include referencing very large data structures or things where only one instance is necessary (like database connection pools).
+
 ### Typealias swift on go
 
 Go lets you create new types from existing ones.
@@ -109,3 +113,28 @@ To make Bitcoin you just use the syntax Bitcoin(999).
 By doing this we're making a new type and we can declare methods on them.
 
 This can be very useful when you want to add some domain specific functionality on top of existing types.
+
+### nil
+nil is synonymous with null from other programming languages. Errors can be nil because the return type of Withdraw will be error, which is an interface. If you see a function that takes arguments or returns values that are interfaces, they can be nillable.
+
+Like null if you try to access a value that is nil it will throw a runtime panic. This is bad! You should make sure that you check for nils.
+
+Pointers can be nil
+
+When a function returns a pointer to something, you need to make sure you check if it's nil or you might raise a runtime exception - the compiler won't help you here.
+
+Useful for when you want to describe a value that could be missing
+
+### t.Fatal
+
+We've introduced t.Fatal which will stop the test if it is called. This is because we don't want to make any more assertions on the error returned if there isn't one around. Without this the test would carry on to the next step and panic because of a nil pointer.
+
+### Errors
+
+Errors are the way to signify failure when calling a function/method.
+
+By listening to our tests we concluded that checking for a string in an error would result in a flaky test. So we refactored our implementation to use a meaningful value instead and this resulted in easier to test code and concluded this would be easier for users of our API too.
+
+This is not the end of the story with error handling, you can do more sophisticated things but this is just an intro. Later sections will cover more strategies.
+
+Don’t just check errors, handle them gracefully
