@@ -138,3 +138,13 @@ By listening to our tests we concluded that checking for a string in an error wo
 This is not the end of the story with error handling, you can do more sophisticated things but this is just an intro. Later sections will cover more strategies.
 
 Don’t just check errors, handle them gracefully
+
+### Maps
+
+Maps allow you to store items in a manner similar to a dictionary. You can think of the key as the word and the value as the definition.
+
+Declaring a Map is somewhat similar to an array. Except, it starts with the map keyword and requires two types. The first is the key type, which is written inside the []. The second is the value type, which goes right after the [].
+
+The key type is special. It can only be a comparable type because without the ability to tell if 2 keys are equal, we have no way to ensure that we are getting the correct value. Comparable types are explained in depth in the language spec.
+
+The value type, on the other hand, can be any type you want. It can even be another map.
