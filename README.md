@@ -148,3 +148,19 @@ Declaring a Map is somewhat similar to an array. Except, it starts with the map 
 The key type is special. It can only be a comparable type because without the ability to tell if 2 keys are equal, we have no way to ensure that we are getting the correct value. Comparable types are explained in depth in the language spec.
 
 The value type, on the other hand, can be any type you want. It can even be another map.
+
+Go has a built-in function delete that works on maps. It takes two arguments. The first is the map and the second is the key to be removed.
+The delete function returns nothing, and we based our Delete method on the same notion.
+
+Since deleting a value that's not there has no effect, unlike our Update and Add methods, we don't need to complicate the API with errors.
+
+
+### Initialize empty maps
+
+```
+var dictionary = map[string]string{}
+​
+// OR
+​
+var dictionary = make(map[string]string)
+```

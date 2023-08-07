@@ -1,8 +1,16 @@
 package maps
 
-import "errors"
+const (
+	ErrNotFound         = DictionaryErr("could not find the word you were looking for")
+	ErrWordExists       = DictionaryErr("cannot add word because it already exists")
+	ErrWordDoesNotExist = DictionaryErr("cannot update word because it does not exist")
+)
 
-var ErrNotFound = errors.New("could not find the word you were looking for")
+type DictionaryErr string
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 func Search(dictionary map[string]string, key string) string {
 	return dictionary[key]
@@ -20,4 +28,39 @@ func (d Dictionary) Search(word string) (string, error) {
 	}
 
 	return definition, nil
+}
+
+func (d Dictionary) Add(key, value string) error {
+
+	_, err := d.Search(key)
+
+	// We can loop the switch on the same type -> Error
+
+	switch err {
+	case ErrNotFound:
+		d[key] = value
+		return nil
+	case nil:
+		return ErrWordExists
+	default:
+		return err
+	}
+}
+
+func (d Dictionary) Update(key, value string) error {
+
+	_, err := d.Search(key)
+
+	if err != nil {
+		return ErrWordDoesNotExist
+	}
+
+	d[key] = value
+
+	return nil
+
+}
+
+func (d Dictionary) Delete(key string) {
+	delete(d, key)
 }
