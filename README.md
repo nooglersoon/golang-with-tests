@@ -189,3 +189,29 @@ In test we will send to bytes.Buffer so our tests can capture what data is being
 2. Slow tests ruin developer productivity.
 
 3. Imagine if the requirements get more sophisticated warranting more tests. Are we happy with 3s added to the test run for every new test of Countdown?
+
+### Spy
+Spies are a kind of mock which can record how a dependency is used. They can record the arguments sent in, how many times it has been called, etc.
+
+### Notes for Mocking:
+1. The thing you are testing is having to do too many things (because it has too many dependencies to mock)
+-> Break the module apart so it does less
+
+2. Its dependencies are too fine-grained
+-> Think about how you can consolidate some of these dependencies into one meaningful module
+
+3. Your test is too concerned with implementation details
+-> Favour testing expected behaviour rather than the implementation
+
+### Test Doubles:
+The generic term he uses is a Test Double (think stunt double). Test Double is a generic term for any case where you replace a production object for testing purposes. There are various kinds of double that Gerard lists:
+
+1. Dummy objects are passed around but never actually used. Usually they are just used to fill parameter lists.
+
+2. Fake objects actually have working implementations, but usually take some shortcut which makes them not suitable for production (an InMemoryTestDatabase is a good example).
+
+3. Stubs provide canned answers to calls made during the test, usually not responding at all to anything outside what's programmed in for the test.
+
+4. Spies are stubs that also record some information based on how they were called. One form of this might be an email service that records how many messages it was sent.
+
+5. Mocks are pre-programmed with expectations which form a specification of the calls they are expected to receive. They can throw an exception if they receive a call they don't expect and are checked during verification to ensure they got all the calls they were expecting.
