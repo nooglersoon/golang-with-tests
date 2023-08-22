@@ -215,3 +215,16 @@ The generic term he uses is a Test Double (think stunt double). Test Double is a
 4. Spies are stubs that also record some information based on how they were called. One form of this might be an email service that records how many messages it was sent.
 
 5. Mocks are pre-programmed with expectations which form a specification of the calls they are expected to receive. They can throw an exception if they receive a call they don't expect and are checked during verification to ensure they got all the calls they were expecting.
+
+### GoRoutines
+Normally in Go when we call a function doSomething() we wait for it to return (even if it has no value to return, we still wait for it to finish). We say that this operation is blocking - it makes us wait for it to finish. An operation that does not block in Go will run in a separate process called a goroutine.
+
+Think of a process as reading down the page of Go code from top to bottom, going 'inside' each function when it gets called to read what it does. When a separate process starts, it's like another reader begins reading inside the function, leaving the original reader to carry on going down the page.
+
+To tell Go to start a new goroutine we turn a function call into a go statement by putting the keyword go in front of it: go doSomething().
+
+### Data Races:
+This is a race condition, a bug that occurs when the output of our software is dependent on the timing and sequence of events that we have no control over. Because we cannot control exactly when each goroutine writes to the results map, we are vulnerable to two goroutines writing to it at the same time.
+
+### Channels:
+We can solve this data race by coordinating our goroutines using channels. Channels are a Go data structure that can both receive and send values. These operations, along with their details, allow communication between different processes.
